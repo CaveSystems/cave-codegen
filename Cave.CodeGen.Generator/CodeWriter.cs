@@ -9,11 +9,13 @@ sealed class CodeWriter
 {
     readonly StringBuilder sb = new();
     readonly Stack<IdentMode> depth = new();
-    int started = 0;
+    int started;
 
     public int Depth => depth.Count;
 
-    public void Ident(IdentMode mode = IdentMode.Brackets, string? tag = null)
+    public bool Started => started != 0;
+
+    public void Ident(IdentMode mode = IdentMode.Brackets)
     {
         var code = mode switch { IdentMode.Brackets => "{", IdentMode.Tab => null, _ => throw new Exception() };
         if (code is not null) AddLine(code);
@@ -51,6 +53,12 @@ sealed class CodeWriter
     {
         StartLine(code);
         EndLine();
+    }
+
+    public void AddUnidentedLine(string? code = null)
+    {
+        if (started != 0) throw new InvalidOperationException();
+        if (code is not null) sb.AppendLine(code);
     }
 
     public override string ToString()
