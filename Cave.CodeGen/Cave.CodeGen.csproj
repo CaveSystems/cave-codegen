@@ -11,5 +11,9 @@
         <!-- Package the generator in the analyzer directory of the nuget package -->
         <None Include="$(SolutionDir)\Cave.CodeGen.Generator\bin\$(Configuration)\netstandard2.0\Cave.CodeGen.Generator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Cave.Extensions" Version="3.0.1" />
+    </ItemGroup>
     
 </Project>
